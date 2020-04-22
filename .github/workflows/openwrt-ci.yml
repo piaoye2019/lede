@@ -207,7 +207,17 @@ jobs:
           make download -j8
           find dl -size -1024c -exec ls -l {} \;
           find dl -size -1024c -exec rm -f {} \;
-
+      - name: Compile packages
+        run: |
+          echo -e "$(nproc) thread build."
+          make -j$(nproc) V=s
+          make package/lean/luci-app-vsftpd/compile V=99
+          make package/lean/luci-app-v2ray-server/compile V=99
+          make package/lean/luci-app-unblockmusic/compile V=99
+          make package/lean/luci-app-softethervpn/compile V=99
+          make package/lean/luci-app-ipsec-vpnd/compile V=99
+          make package/lean/luci-app-frps/compile V=99
+          make package/lean/luci-app-frpc/compile V=99
       - name: Compile firmware
         run: |
           echo -e "$(nproc) thread build."
